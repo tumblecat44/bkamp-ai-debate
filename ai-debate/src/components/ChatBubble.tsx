@@ -1,6 +1,7 @@
 import { AIModel } from '@/lib/types';
 import { Card } from '@/components/ui/card';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const MODEL_CONFIG: Record<AIModel, { name: string; color: string; bgColor: string }> = {
   gpt: { name: 'GPT', color: '#10A37F', bgColor: 'bg-green-50 dark:bg-green-950' },
@@ -30,7 +31,7 @@ export function ChatBubble({ model, content, isStreaming }: ChatBubbleProps) {
           {config.name}
         </div>
         <div className="prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
           {isStreaming && <span className="animate-pulse">|</span>}
         </div>
       </Card>

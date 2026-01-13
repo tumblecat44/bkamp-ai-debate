@@ -8,6 +8,7 @@ import { useDebateStore } from '@/store/debate-store';
 import { AIModel, Message, DebateStage } from '@/lib/types';
 import { ChatBubble } from './ChatBubble';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const MODEL_CONFIG: Record<AIModel, { name: string; color: string }> = {
   gpt: { name: 'GPT', color: '#10A37F' },
@@ -206,11 +207,11 @@ export function ResultSummary() {
                   </div>
                 ) : generatedSummary ? (
                   <div className="prose prose-sm dark:prose-invert max-w-none text-green-900 dark:text-green-100 prose-headings:text-green-800 dark:prose-headings:text-green-200">
-                    <ReactMarkdown>{generatedSummary}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{generatedSummary}</ReactMarkdown>
                   </div>
                 ) : consensusSummary ? (
                   <div className="prose prose-sm dark:prose-invert max-w-none text-green-900 dark:text-green-100 prose-headings:text-green-800 dark:prose-headings:text-green-200">
-                    <ReactMarkdown>{consensusSummary}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{consensusSummary}</ReactMarkdown>
                   </div>
                 ) : null}
               </div>
@@ -235,7 +236,7 @@ export function ResultSummary() {
                     <div className="mb-2">
                       <span className="text-xs font-medium text-muted-foreground">핵심 논거</span>
                       <div className="prose prose-sm dark:prose-invert max-w-none mt-1">
-                        <ReactMarkdown>{parsed.coreArgument}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{parsed.coreArgument}</ReactMarkdown>
                       </div>
                     </div>
                   )}
@@ -244,14 +245,14 @@ export function ResultSummary() {
                     <div className="mb-2 p-2 bg-amber-50 dark:bg-amber-950 rounded border border-amber-200 dark:border-amber-800">
                       <span className="text-xs font-medium text-amber-700 dark:text-amber-300">양보한 부분</span>
                       <div className="prose prose-sm dark:prose-invert max-w-none mt-1 text-amber-900 dark:text-amber-100">
-                        <ReactMarkdown>{parsed.concession}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{parsed.concession}</ReactMarkdown>
                       </div>
                     </div>
                   )}
 
                   {!parsed.coreArgument && !parsed.concession && parsed.raw && (
                     <div className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground">
-                      <ReactMarkdown>{parsed.raw}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{parsed.raw}</ReactMarkdown>
                     </div>
                   )}
                 </div>
